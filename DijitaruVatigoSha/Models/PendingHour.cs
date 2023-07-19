@@ -9,14 +9,16 @@ public class PendingHour
     public int HourAmount { get; set; }
     public bool IsApproved { get; set; }
 
-    public Collaborator Collaborator { get; set; }
-    public Project Project { get; set; }
-    public Collaborator Approver { get; set; }
+    // *** --- relations ------------------------------------------------ *** //
 
-    public PendingHour()
-    {
-        Collaborator = new Collaborator();
-        Project = new Project();
-        Approver = new Collaborator();
-    }
+    public required Collaborator Collaborator { get; set; }
+    public required Project Project { get; set; }
+    public required Collaborator Approver { get; set; }
+
+    // public PendingHour()
+    // {
+    //     Collaborator = new Collaborator();
+    //     Project = new Project();
+    //     Approver = new Collaborator();
+    // }
 }

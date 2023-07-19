@@ -22,6 +22,36 @@ namespace DijitaruVatigoSha.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("CollaboratorProject", b =>
+                {
+                    b.Property<int>("CollaboratorsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProjectsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CollaboratorsId", "ProjectsId");
+
+                    b.HasIndex("ProjectsId");
+
+                    b.ToTable("CollaboratorProject", (string)null);
+                });
+
+            modelBuilder.Entity("CollaboratorProject1", b =>
+                {
+                    b.Property<int>("ApprovableProjectsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ApproversId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ApprovableProjectsId", "ApproversId");
+
+                    b.HasIndex("ApproversId");
+
+                    b.ToTable("ProjectApprover", (string)null);
+                });
+
             modelBuilder.Entity("DijitaruVatigoSha.Models.Collaborator", b =>
                 {
                     b.Property<int>("Id")
@@ -47,17 +77,7 @@ namespace DijitaruVatigoSha.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProjectId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProjectId1")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ProjectId");
-
-                    b.HasIndex("ProjectId1");
 
                     b.ToTable("Collaborators");
                 });
@@ -122,21 +142,40 @@ namespace DijitaruVatigoSha.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("DijitaruVatigoSha.Models.Collaborator", b =>
+            modelBuilder.Entity("CollaboratorProject", b =>
                 {
-                    b.HasOne("DijitaruVatigoSha.Models.Project", null)
-                        .WithMany("Approvers")
-                        .HasForeignKey("ProjectId");
+                    b.HasOne("DijitaruVatigoSha.Models.Collaborator", null)
+                        .WithMany()
+                        .HasForeignKey("CollaboratorsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DijitaruVatigoSha.Models.Project", null)
-                        .WithMany("Collaborators")
-                        .HasForeignKey("ProjectId1");
+                        .WithMany()
+                        .HasForeignKey("ProjectsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CollaboratorProject1", b =>
+                {
+                    b.HasOne("DijitaruVatigoSha.Models.Project", null)
+                        .WithMany()
+                        .HasForeignKey("ApprovableProjectsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DijitaruVatigoSha.Models.Collaborator", null)
+                        .WithMany()
+                        .HasForeignKey("ApproversId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DijitaruVatigoSha.Models.PendingHour", b =>
                 {
                     b.HasOne("DijitaruVatigoSha.Models.Collaborator", "Approver")
-                        .WithMany("ApprovedHours")
+                        .WithMany("ApprovableHours")
                         .HasForeignKey("ApproverId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -162,17 +201,13 @@ namespace DijitaruVatigoSha.Migrations
 
             modelBuilder.Entity("DijitaruVatigoSha.Models.Collaborator", b =>
                 {
-                    b.Navigation("ApprovedHours");
+                    b.Navigation("ApprovableHours");
 
                     b.Navigation("PendingHours");
                 });
 
             modelBuilder.Entity("DijitaruVatigoSha.Models.Project", b =>
                 {
-                    b.Navigation("Approvers");
-
-                    b.Navigation("Collaborators");
-
                     b.Navigation("PendingHours");
                 });
 #pragma warning restore 612, 618

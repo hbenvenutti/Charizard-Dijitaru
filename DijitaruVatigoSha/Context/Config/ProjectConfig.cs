@@ -1,5 +1,4 @@
-﻿using DijitaruVatigoSha.Enums;
-using DijitaruVatigoSha.Models;
+﻿using DijitaruVatigoSha.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -9,14 +8,20 @@ public class ProjectConfig : IEntityTypeConfiguration<Project>
 {
     public void Configure(EntityTypeBuilder<Project> builder)
     {
-
         builder
             .HasKey(project => project.Id);
 
-        builder.Property(project => project.Name).IsRequired();
+        builder
+            .Property(project => project.Name)
+            .IsRequired();
 
-        builder.Property(project => project.Budget).IsRequired();
+        builder
+            .Property(project => project.Budget)
+            .IsRequired();
 
-        builder.Property(project => project.Type).IsRequired();
+        builder
+            .Property(project => project.TypeString)
+            .HasColumnName("Type")
+            .IsRequired();
     }
 }

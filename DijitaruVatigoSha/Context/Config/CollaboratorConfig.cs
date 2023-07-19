@@ -2,40 +2,46 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DijitaruVatigoSha.Context.Config
+namespace DijitaruVatigoSha.Context.Config;
+
+public class CollaboratorConfig : IEntityTypeConfiguration<Collaborator>
 {
-    public class CollaboratorConfig : IEntityTypeConfiguration<Collaborator>
+    public void Configure(EntityTypeBuilder<Collaborator> builder)
     {
-        public void Configure(EntityTypeBuilder<Collaborator> builder)
-        {
+        builder
+            .HasKey(collaborator => collaborator.Id);
 
-            builder
-                .HasKey(collaborator => collaborator.Id);
+        builder
+            .Property(collaborator => collaborator.Name)
+            .IsRequired();
 
-            builder
-                .Property(collaborator => collaborator.Name)
-                .IsRequired();
+        builder
+            .Property(collaborator => collaborator.Gender)
+            .HasColumnType("nchar(1)")
+            .IsRequired();
 
-            builder
-                .Property(collaborator => collaborator.Gender)
-                .HasColumnType("nchar(1)")
-                .IsRequired();
+        builder
+            .Property(collaborator => collaborator.BirthDate)
+            .IsRequired();
 
-            builder
-                .Property(collaborator => collaborator.BirthDate)
-                .IsRequired();
+        builder
+            .Property(collaborator => collaborator.ModalityString)
+            .HasColumnName("Modality")
+            .IsRequired();
 
-            builder
-                .Property(collaborator => collaborator.Modality)
-                .IsRequired();
+        builder
+            .Property(collaborator => collaborator.RoleString)
+            .HasColumnName("Role")
+            .IsRequired();
 
-            builder
-                .Property(collaborator => collaborator.CollaboratorRole)
-                .IsRequired();
-        }
+        builder
+            .HasMany(collaborator => collaborator.Projects)
+            .WithMany(project => project.Collaborators)
+            .UsingEntity(join => join.ToTable("CollaboratorProject"));
+
+        builder
+            .HasMany(collaborator => collaborator.ApprovableProjects)
+            .WithMany(project => project.Approvers)
+            .UsingEntity(join => join.ToTable("ProjectApprover"));
     }
 }
-    
-
-
-
