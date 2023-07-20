@@ -14,13 +14,13 @@ public static class ContractModalityMapper
 
     public static string ModalityToString(this ContractModality modality)
     {
-        return nameof(modality);
-        // return map.First(x => x.Value == role).Key;
+        // return nameof(modality);
+        return map.First(x => x.Value == modality).Key;
     }
 
     public static ContractModality ToContractModality(this string modality)
     {
-        return map[modality];
-        // return map.First(x => x.Key == role).Value;
+        // return map[modality];
+        return map.First(x => x.Key == modality).Value;
     }
 }

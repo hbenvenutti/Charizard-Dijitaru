@@ -1,4 +1,5 @@
-﻿using DijitaruVatigoSha.Enums;
+﻿using DijitaruVatigoSha.Dictionaries;
+using DijitaruVatigoSha.Enums;
 
 namespace DijitaruVatigoSha.Models;
 
@@ -20,4 +21,13 @@ public class Project
     public IList<Collaborator> Collaborators { get; set; }
     public IList<Collaborator> Approvers { get; set; }
     public IList<PendingHour> PendingHours { get; set; }
+
+    // *** --- constructors --------------------------------------------- *** //
+
+    public Project()
+    {
+        Collaborators = new List<Collaborator>();
+        Approvers = new List<Collaborator>();
+        PendingHours = new List<PendingHour>();
+    }
 }

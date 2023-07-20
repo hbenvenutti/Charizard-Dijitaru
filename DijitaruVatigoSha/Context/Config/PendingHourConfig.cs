@@ -10,11 +10,23 @@ internal class PendingHourConfig : IEntityTypeConfiguration<PendingHour>
         builder
             .HasKey(pendingHour => pendingHour.Id);
 
+        // ------------------------------------------------------------------ //
+
+        builder
+            .Property(pendingHour => pendingHour.CollaboratorId)
+            .IsRequired();
+
         builder
             .HasOne(pendingHour => pendingHour.Collaborator)
             .WithMany(collaborator => collaborator.PendingHours)
             // .HasForeignKey("CollaboratorId")
             .OnDelete(DeleteBehavior.Restrict)
+            .IsRequired();
+
+        // ------------------------------------------------------------------ //
+
+        builder
+            .Property(pendingHour => pendingHour.ProjectId)
             .IsRequired();
 
         builder
@@ -24,12 +36,19 @@ internal class PendingHourConfig : IEntityTypeConfiguration<PendingHour>
             .OnDelete(DeleteBehavior.Restrict)
             .IsRequired();
 
+        // ------------------------------------------------------------------ //
+
+        builder
+            .Property(pendingHour => pendingHour.ApproverId);
+
         builder
             .HasOne(pendingHour => pendingHour.Approver)
             .WithMany(approver => approver.ApprovableHours)
             // .HasForeignKey("CollaboratorId")
             .OnDelete(DeleteBehavior.Restrict)
-            .IsRequired();
+            .IsRequired(false);
+        
+        // ------------------------------------------------------------------ //
 
         builder
             .Property(pendingHour => pendingHour.HourAmount)

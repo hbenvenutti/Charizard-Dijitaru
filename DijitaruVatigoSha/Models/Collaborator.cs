@@ -7,7 +7,15 @@ public class Collaborator
 {
     public int Id { get; set; }
     public required string Name { get; set; }
-    public char Gender { get; set; }
+    
+    public string GenderString { get; private set; }
+    
+    public Gender Gender 
+    { 
+        get { return GenderString.ToGender(); }
+        set { GenderString = value.GenderToString(); } 
+    }
+
     public DateTime BirthDate { get; set; }
 
     public string ModalityString { get; private set; }
@@ -37,12 +45,12 @@ public class Collaborator
 
     // *** --- constructors --------------------------------------------- *** //
 
-    // public Collaborator()
-    // {
-    //     PendingHours = new List<PendingHour>();
-    //     ApprovableHours = new List<PendingHour>();
+    public Collaborator()
+    {
+        PendingHours = new List<PendingHour>();
+        ApprovableHours = new List<PendingHour>();
 
-    //     ApprovableProjects = new List<Project>();
-    //     Projects = new List<Project>();
-    // }
+        ApprovableProjects = new List<Project>();
+        Projects = new List<Project>();
+    }
 }

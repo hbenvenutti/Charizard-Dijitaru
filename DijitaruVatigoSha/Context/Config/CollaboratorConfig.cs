@@ -30,9 +30,22 @@ public class CollaboratorConfig : IEntityTypeConfiguration<Collaborator>
             .IsRequired();
 
         builder
+            .Ignore(collaborator => collaborator.Modality);
+        
+        builder
+            .Property(collaborator => collaborator.GenderString)
+            .HasColumnName("Gender")
+            .IsRequired();
+        
+        builder
+            .Ignore(collaborator => collaborator.Gender);
+
+        builder
             .Property(collaborator => collaborator.RoleString)
             .HasColumnName("Role")
             .IsRequired();
+
+        builder.Ignore(collaborator => collaborator.Role);
 
         builder
             .HasMany(collaborator => collaborator.Projects)

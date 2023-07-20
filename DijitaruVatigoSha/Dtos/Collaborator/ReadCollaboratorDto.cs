@@ -1,9 +1,10 @@
 using DijitaruVatigoSha.Enums;
 
-namespace DijitaruVatigoSha.Dtos;
+namespace DijitaruVatigoSha.Dtos.Collaborator;
 
-public class CreateCollaboratorDto
-{
+public class ReadCollaboratorDto
+{   
+    public int Id { get; init; }
     public required string Name { get; init; }
     public Gender Gender { get; init; }
     public DateTime BirthDate { get; init; }

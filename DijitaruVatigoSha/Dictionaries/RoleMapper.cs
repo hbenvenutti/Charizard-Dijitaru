@@ -14,13 +14,13 @@ public static class RoleMapper
 
     public static string RoleToString(this Role role)
     {
-        return nameof(role);
-        // return map.First(x => x.Value == role).Key;
+        // return nameof(role);
+        return map.First(x => x.Value == role).Key;
     }
 
     public static Role ToRole(this string role)
     {
-        return map[role];
-        // return map.First(x => x.Key == role).Value;
+        // return map[role];
+        return map.First(x => x.Key == role).Value;
     }
 }

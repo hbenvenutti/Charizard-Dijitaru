@@ -13,13 +13,13 @@ public static class ProjectTypeMapper
 
     public static string ProjectTypeToString(this ProjectType projectType)
     {
-        return nameof(projectType);
-        // return map.First(x => x.Value == role).Key;
+        // return nameof(projectType);
+        return map.First(x => x.Value == projectType).Key;
     }
 
     public static ProjectType ToProjectType(this string projectType)
     {
-        return map[projectType];
-        // return map.First(x => x.Key == role).Value;
+        // return map[projectType];
+        return map.First(x => x.Key == projectType).Value;
     }
 }

@@ -18,10 +18,10 @@ namespace DijitaruVatigoSha.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Gender = table.Column<string>(type: "nchar(1)", nullable: false),
+                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Modality = table.Column<int>(type: "int", nullable: false),
-                    CollaboratorRole = table.Column<int>(type: "int", nullable: false)
+                    Modality = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -36,7 +36,7 @@ namespace DijitaruVatigoSha.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Budget = table.Column<double>(type: "float", nullable: false),
-                    Type = table.Column<int>(type: "int", nullable: false)
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -68,34 +68,34 @@ namespace DijitaruVatigoSha.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PendingHours",
+                name: "Hours",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CollaboratorId = table.Column<int>(type: "int", nullable: false),
                     ProjectId = table.Column<int>(type: "int", nullable: false),
-                    ApproverId = table.Column<int>(type: "int", nullable: false),
+                    ApproverId = table.Column<int>(type: "int", nullable: true),
                     HourAmount = table.Column<int>(type: "int", nullable: false),
                     IsApproved = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PendingHours", x => x.Id);
+                    table.PrimaryKey("PK_Hours", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PendingHours_Collaborators_ApproverId",
+                        name: "FK_Hours_Collaborators_ApproverId",
                         column: x => x.ApproverId,
                         principalTable: "Collaborators",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_PendingHours_Collaborators_CollaboratorId",
+                        name: "FK_Hours_Collaborators_CollaboratorId",
                         column: x => x.CollaboratorId,
                         principalTable: "Collaborators",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_PendingHours_Projects_ProjectId",
+                        name: "FK_Hours_Projects_ProjectId",
                         column: x => x.ProjectId,
                         principalTable: "Projects",
                         principalColumn: "Id",
@@ -132,18 +132,18 @@ namespace DijitaruVatigoSha.Migrations
                 column: "ProjectsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PendingHours_ApproverId",
-                table: "PendingHours",
+                name: "IX_Hours_ApproverId",
+                table: "Hours",
                 column: "ApproverId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PendingHours_CollaboratorId",
-                table: "PendingHours",
+                name: "IX_Hours_CollaboratorId",
+                table: "Hours",
                 column: "CollaboratorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PendingHours_ProjectId",
-                table: "PendingHours",
+                name: "IX_Hours_ProjectId",
+                table: "Hours",
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
@@ -159,7 +159,7 @@ namespace DijitaruVatigoSha.Migrations
                 name: "CollaboratorProject");
 
             migrationBuilder.DropTable(
-                name: "PendingHours");
+                name: "Hours");
 
             migrationBuilder.DropTable(
                 name: "ProjectApprover");

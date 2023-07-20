@@ -23,5 +23,8 @@ public class ProjectConfig : IEntityTypeConfiguration<Project>
             .Property(project => project.TypeString)
             .HasColumnName("Type")
             .IsRequired();
+        
+        builder
+            .Ignore(project => project.Type);
     }
 }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DijitaruVatigoSha.Migrations
 {
     [DbContext(typeof(DijitaruVatigoShaContext))]
-    [Migration("20230719171953_All")]
+    [Migration("20230720193158_All")]
     partial class All
     {
         /// <inheritdoc />
@@ -66,19 +66,24 @@ namespace DijitaruVatigoSha.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CollaboratorRole")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Gender")
+                    b.Property<string>("GenderString")
                         .IsRequired()
-                        .HasColumnType("nchar(1)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Gender");
 
-                    b.Property<int>("Modality")
-                        .HasColumnType("int");
+                    b.Property<string>("ModalityString")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Modality");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleString")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Role");
 
                     b.HasKey("Id");
 
@@ -94,7 +99,6 @@ namespace DijitaruVatigoSha.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("ApproverId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("CollaboratorId")
@@ -119,7 +123,7 @@ namespace DijitaruVatigoSha.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("PendingHours");
+                    b.ToTable("Hours");
                 });
 
             modelBuilder.Entity("DijitaruVatigoSha.Models.Project", b =>
@@ -137,8 +141,10 @@ namespace DijitaruVatigoSha.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
+                    b.Property<string>("TypeString")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Type");
 
                     b.HasKey("Id");
 
@@ -180,8 +186,7 @@ namespace DijitaruVatigoSha.Migrations
                     b.HasOne("DijitaruVatigoSha.Models.Collaborator", "Approver")
                         .WithMany("ApprovableHours")
                         .HasForeignKey("ApproverId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DijitaruVatigoSha.Models.Collaborator", "Collaborator")
                         .WithMany("PendingHours")
