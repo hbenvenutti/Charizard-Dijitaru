@@ -14,12 +14,12 @@ public static class GenderMapper
     public static string GenderToString(this Gender gender)
     {
         // return nameof(gender);
-        return map.First(x => x.Value == gender).Key;
+        return map.First(key => key.Value == gender).Key;
     }
 
     public static Gender ToGender(this string gender)
     {
         // return map[gender];
-        return map.First(x => x.Key == gender).Value;
+        return map.First(value => value.Key == gender).Value;
     }
 }

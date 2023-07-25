@@ -6,10 +6,13 @@ namespace DijitaruVatigoSha.Models;
 public class Project
 {
     public int Id { get; set; }
+
     public required string Name { get; set; }
+
     public double Budget { get; set; }
 
     public string TypeString { get; private set; }
+    
     public ProjectType Type 
     { 
         get { return TypeString.ToProjectType(); }

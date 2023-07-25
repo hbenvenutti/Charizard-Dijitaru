@@ -1,6 +1,5 @@
 using AutoMapper;
 using DijitaruVatigoSha.Context;
-using DijitaruVatigoSha.Dtos;
 using DijitaruVatigoSha.Dtos.Hour;
 using DijitaruVatigoSha.Enums;
 using DijitaruVatigoSha.Models;
@@ -24,8 +23,8 @@ public class HoursController : ControllerBase
     }
 
     // *** --- routes --------------------------------------------------- *** //
-
-    [HttpGet("/registers")]
+    
+    [HttpGet("registers")]
     public IEnumerable<ReadHoursDto> ListHours()
     {
         var hours = _context.Hours.ToList();
@@ -35,7 +34,7 @@ public class HoursController : ControllerBase
 
     // ---------------------------------------------------------------------- //
 
-    [HttpGet("/registers/{id}")]
+    [HttpGet("registers/{id}")]
     public IActionResult GetHourById(int id)
     {
         var hour = _context.Hours
@@ -45,12 +44,12 @@ public class HoursController : ControllerBase
 
         var dto = _mapper.Map<ReadHoursDto>(hour);
 
-        return Ok(_mapper.Map<ReadHoursDto>(dto));
+        return Ok(dto);
     }
 
     // ---------------------------------------------------------------------- //
 
-    [HttpPost("/registers")]
+    [HttpPost("registers")]
     public IActionResult CreateHour(CreateHoursDto dto)
     {
         var hour = _mapper.Map<PendingHour>(dto);
@@ -60,12 +59,16 @@ public class HoursController : ControllerBase
 
         var responseDto = _mapper.Map<ReadHoursDto>(hour);
 
-        return CreatedAtAction(nameof(GetHourById), new { hour.Id }, responseDto);
+        return CreatedAtAction(
+            nameof(GetHourById), 
+            new { hour.Id }, 
+            responseDto
+        );
     }
 
     // ---------------------------------------------------------------------- //
 
-    [HttpDelete("/registers/{id}")]
+    [HttpDelete("registers/{id}")]
     public IActionResult DeleteHour(int id)
     {
         var hour = _context.Hours
@@ -81,7 +84,7 @@ public class HoursController : ControllerBase
 
     // ---------------------------------------------------------------------- //
 
-    [HttpPost("/registers/{id}/approve")]
+    [HttpPost("registers/{id}/approve")]
     public IActionResult ApproveHour(int id, [FromBody] ApproveHourDto dto)
     {
         // *** --- check hours ------------------------------------------ *** //
@@ -127,7 +130,7 @@ public class HoursController : ControllerBase
 
     // *** --- Approved Hours ------------------------------------------- *** //
 
-    [HttpGet("/approved")]
+    [HttpGet("approved")]
     public IEnumerable<ReadHoursDto> ListApprovedHours()
     {
         var hours = _context.Hours
@@ -139,7 +142,7 @@ public class HoursController : ControllerBase
 
     // ---------------------------------------------------------------------- //
 
-    [HttpGet("/approved/{id}")]
+    [HttpGet("approved/{id}")]
     public IActionResult GetApprovedHourById(int id)
     {
         var hour = _context.Hours
@@ -149,6 +152,6 @@ public class HoursController : ControllerBase
 
         var dto = _mapper.Map<ReadHoursDto>(hour);
 
-        return Ok(_mapper.Map<ReadHoursDto>(dto));
+        return Ok(dto);
     }
 }

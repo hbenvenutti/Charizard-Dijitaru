@@ -10,7 +10,7 @@ public class Collaborator
     
     public string GenderString { get; private set; }
     
-    public Gender Gender 
+    public Gender Gender
     { 
         get { return GenderString.ToGender(); }
         set { GenderString = value.GenderToString(); } 
@@ -25,6 +25,7 @@ public class Collaborator
         get { return ModalityString.ToContractModality(); } 
         set { ModalityString = value.ModalityToString();} 
     }
+    
     public string RoleString { get; private set;}
 
     public Role Role

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DijitaruVatigoSha.Context;
 public class DijitaruVatigoShaContext : DbContext
 {
-    public required DbSet<Collaborator> Collaborators { get; set; }
+    public DbSet<Collaborator> Collaborators { get; set; }
     public DbSet<Project> Projects { get; set; }
 
     public DbSet<PendingHour> Hours { get; set; }

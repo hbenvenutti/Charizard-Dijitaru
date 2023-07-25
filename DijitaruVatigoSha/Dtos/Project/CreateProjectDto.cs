@@ -4,7 +4,7 @@ namespace DijitaruVatigoSha.Dtos.Project;
 
 public class CreateProjectDto
 {
-    public string Name { get; set; }
-    public double Budget { get; set; }
-    public ProjectType Type { get; set; }
+    public string Name { get; init; }
+    public double Budget { get; init; }
+    public ProjectType Type { get; init; }
 }

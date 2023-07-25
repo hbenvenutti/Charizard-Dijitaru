@@ -1,6 +1,5 @@
 using AutoMapper;
 using DijitaruVatigoSha.Context;
-using DijitaruVatigoSha.Dtos;
 using DijitaruVatigoSha.Dtos.Project;
 using DijitaruVatigoSha.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -40,7 +39,7 @@ public class ProjectsController : ControllerBase
 
         var dto = _mapper.Map<ReadProjectDto>(project);
 
-        return Ok(_mapper.Map<ReadProjectDto>(dto));
+        return Ok(dto);
     }
 
     [HttpPost]
@@ -53,7 +52,11 @@ public class ProjectsController : ControllerBase
 
         var responseDto = _mapper.Map<ReadProjectDto>(project);
 
-        return CreatedAtAction(nameof(GetProjectById), new { project.Id }, responseDto);
+        return CreatedAtAction(
+            nameof(GetProjectById), 
+            new { project.Id }, 
+            responseDto
+        );
     }
 
     [HttpDelete("{id}")]

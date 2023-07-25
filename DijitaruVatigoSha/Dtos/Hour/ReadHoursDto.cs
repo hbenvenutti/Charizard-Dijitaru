@@ -2,10 +2,10 @@ namespace DijitaruVatigoSha.Dtos.Hour;
 
 public class ReadHoursDto
 {
-    public int Id { get; set; }
-    public int CollaboratorId { get; set; }
-    public int ProjectId { get; set; }
-    public int? ApproverId { get; set; } = null;
-    public int HourAmount { get; set; }
-    public bool IsApproved { get; set; } = false;
+    public int Id { get; init; }
+    public int CollaboratorId { get; init; }
+    public int ProjectId { get; init; }
+    public int? ApproverId { get; init; }
+    public int HourAmount { get; init; }
+    public bool IsApproved { get; init; }
 }

@@ -39,7 +39,8 @@ internal class PendingHourConfig : IEntityTypeConfiguration<PendingHour>
         // ------------------------------------------------------------------ //
 
         builder
-            .Property(pendingHour => pendingHour.ApproverId);
+            .Property(pendingHour => pendingHour.ApproverId)
+            .IsRequired(false);
 
         builder
             .HasOne(pendingHour => pendingHour.Approver)

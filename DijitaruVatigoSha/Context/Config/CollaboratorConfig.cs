@@ -16,9 +16,12 @@ public class CollaboratorConfig : IEntityTypeConfiguration<Collaborator>
             .IsRequired();
 
         builder
-            .Property(collaborator => collaborator.Gender)
-            .HasColumnType("nchar(1)")
+            .Property(collaborator => collaborator.GenderString)
+            .HasColumnName("Gender")
             .IsRequired();
+        
+        builder
+            .Ignore(collaborator => collaborator.Gender);
 
         builder
             .Property(collaborator => collaborator.BirthDate)
@@ -32,14 +35,6 @@ public class CollaboratorConfig : IEntityTypeConfiguration<Collaborator>
         builder
             .Ignore(collaborator => collaborator.Modality);
         
-        builder
-            .Property(collaborator => collaborator.GenderString)
-            .HasColumnName("Gender")
-            .IsRequired();
-        
-        builder
-            .Ignore(collaborator => collaborator.Gender);
-
         builder
             .Property(collaborator => collaborator.RoleString)
             .HasColumnName("Role")

@@ -40,7 +40,11 @@ public class CollaboratorsController : ControllerBase
 
         var responseDto = _mapper.Map<ReadCollaboratorDto>(collaborator);
 
-        return CreatedAtAction(nameof(GetCollaboratorById), new { collaborator.Id }, responseDto);
+        return CreatedAtAction(
+            nameof(GetCollaboratorById), 
+            new { collaborator.Id }, 
+            responseDto
+        );
     }
 
     [HttpGet("{id}")]
@@ -53,7 +57,7 @@ public class CollaboratorsController : ControllerBase
 
         var dto = _mapper.Map<ReadCollaboratorDto>(collaborator);
 
-        return Ok(_mapper.Map<ReadCollaboratorDto>(dto));
+        return Ok(dto);
     }
 
     [HttpDelete("{id}")]
